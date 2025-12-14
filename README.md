@@ -73,3 +73,5 @@ If you need help with the plugin or have any questions, please open an issue on 
 *   Added a toggle for geolocation flagging.
 *   Encrypted sensitive data in the database.
 *   Patched a critical security vulnerability where a banned user could log in using their email address.
+
+write and Design by: A.Babaei
