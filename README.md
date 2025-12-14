@@ -109,7 +109,7 @@ Effect: Detects cross-country sharing. Only active if geolocation flagging is en
 A.Babaei, [12/14/2025 4:42 PM]
 Purpose: Specifies the email address where alerts for flagged activities (e.g., threshold breaches, suspicious logins) are sent.
 Code Implementation: Pulled via get_option('admin_notification_email') in logging functions. When a flag occurs (e.g., log_suspicious_activity($event)), it calls wp_mail($email, 'Security Alert: Video Access Flagged', $message).
-Effect: Keeps site admins informed in real-time. Recommended: Use a dedicated monitoring email like the one shown (S.jalili@yahoo.com).
+Effect: Keeps site admins informed in real-time. Recommended: Use a dedicated monitoring email like the one shown (Email@.com).
 
 * 7. Session Limit (Checkbox + Number input, default: unchecked, limit 1)
 
