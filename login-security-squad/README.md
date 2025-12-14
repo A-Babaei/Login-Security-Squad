@@ -1,88 +1,61 @@
 # Login Security Squad
 
-Detects and prevents users from sharing login credentials.
+**Contributors:** Jules
+**Requires at least:** 5.0
+**Tested up to:** 6.5
+**Stable tag:** 1.3
+**License:** GPL v2 or later
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
-## How It Works
+A comprehensive security plugin for WordPress that detects and prevents users from sharing login credentials, protecting your site from unauthorized access.
 
-Login Security Squad protects your content by monitoring user activity for signs of account sharing. It uses a combination of session management, IP and device fingerprinting, and behavioral analysis to identify suspicious behavior and block unauthorized access.
+## Description
 
-### Core Components
+Login Security Squad is a powerful security solution designed to protect your WordPress site by monitoring user activity for signs of account sharing. It uses a combination of session management, IP and device fingerprinting, and behavioral analysis to identify suspicious behavior and block unauthorized access. With a full suite of admin tools, you can configure the plugin to meet your specific security needs and keep a close eye on user activity.
 
-*   **Custom Database Tables:**
-    *   `wp_login_security_logs`: Records detailed information about each user login, including IP address, user agent, location, session token, and a unique device fingerprint. All sensitive data (IPs, fingerprints) is encrypted.
-    *   `wp_lss_content_access_logs`: Tracks when a user accesses a piece of protected content, logging their user ID, the content ID, IP address, and device fingerprint.
+### Key Features
 
-*   **Concurrent Session Limiting:**
-    *   You can set a limit on the number of simultaneous login sessions a user can have (e.g., 1 or 2).
-    *   When a user exceeds this limit, the plugin prompts them to log out of their other sessions before they can proceed, preventing multiple people from using the same account at the same time.
+*   **Concurrent Session Limiting:** Prevent multiple users from logging into the same account simultaneously.
+*   **IP & Device Fingerprinting:** Flag suspicious activity by monitoring logins from multiple IPs or devices.
+*   **OTP Verification:** Secure user accounts by requiring a one-time password for suspicious logins.
+*   **Content Access Monitoring:** Get alerted to suspicious activity by tracking access to your protected content.
+*   **Admin Dashboard & Controls:** A full suite of tools for monitoring and managing user activity.
 
-*   **IP & Device Fingerprinting:**
-    *   On every login, the plugin captures the user's IP address and generates a unique "fingerprint" for their device based on their browser and other system details.
-    *   It flags accounts for suspicious activity if it detects logins from too many unique IPs or devices within a short period (configurable in the settings).
-    *   The plugin also uses geolocation to flag logins from distant locations, adding another layer of security.
+## Installation
 
-*   **One-Time Password (OTP) Verification:**
-    *   If a user's login is flagged as suspicious, the plugin can be configured to require them to enter a one-time password (OTP) sent to their registered email address.
-    *   This ensures that even if someone has a user's password, they won't be able to log in from an unrecognized device or location without access to the user's email.
+1.  Download the `login-security-squad.zip` file.
+2.  In your WordPress admin panel, go to **Plugins** > **Add New**.
+3.  Click **Upload Plugin** and select the downloaded zip file.
+4.  Activate the plugin.
+5.  Go to **Login Security > Anti-Sharing** to configure the plugin.
 
-*   **Content Access Monitoring:**
-    *   The plugin monitors how often users access your protected content.
-    *   If it detects the same content being accessed from multiple devices in a short time, it will flag the account for suspicious activity, as this can be a sign of link sharing.
+## Frequently Asked Questions (FAQ)
 
-*   **Admin Dashboard & Controls:**
-    *   **Settings Page:** A comprehensive settings page allows you to configure all of the plugin's features, including session limits, IP and device thresholds, and email templates.
-    *   **Dashboard Widget:** A widget on the main WordPress dashboard shows you a list of all flagged accounts, so you can quickly see who might be sharing their account.
-    *   **User Management:** You can warn, temporarily suspend, or permanently ban users directly from the WordPress users list or the plugin's dashboard.
+**Q: Can I exempt certain user roles from being blocked?**
 
-## How to Test the Plugin
+A: Yes, by default, users with the `administrator` or `teacher` roles are exempt from all suspicious activity blocking.
 
-Follow these steps to test the core features of the Login Security Squad plugin.
+**Q: What happens when a user is blocked?**
 
-### Test 1: Concurrent Session Limiting
+A: When a user is blocked, their password is changed, and they are immediately logged out. To regain access, they will need to use the "Forgot Password" feature to reset their password.
 
-1.  **Configure:** Go to **Login Security > Anti-Sharing** in your WordPress admin panel and set the **Session Limit** to `1`.
-2.  **Log In (First Session):** Open a browser (e.g., Chrome) and log in to a test user account.
-3.  **Log In (Second Session):** Open a different browser (e.g., Firefox) or use a private browsing window and try to log in to the *same* user account.
-4.  **Expected Outcome:** You should be redirected to a page asking you to "Log Out Other Devices." Clicking the button should end the first session (in Chrome) and allow you to proceed in the second session (in Firefox).
+**Q: Can I manually block or unblock a user?**
 
-### Test 2: Suspicious Activity Flagging & OTP Verification
+A: Yes, you can manually block or unblock any user from the **Login Security > Manual Blocking / Unblocking** section in the admin dashboard.
 
-1.  **Configure:**
-    *   Go to **Login Security > Anti-Sharing**.
-    *   Set the **IP Threshold** to `2`.
-    *   Enable **OTP Verification**.
-    *   Make sure you have a working email delivery service on your WordPress site.
-2.  **Log In (First IP):** Log in to a test user account from your current IP address.
-3.  **Log In (Second IP):** Use a VPN or a different network (e.g., your mobile phone's data plan) to change your IP address. Log in to the same account again.
-4.  **Log In (Third IP):** Change your IP address one more time and attempt to log in.
-5.  **Expected Outcome:**
-    *   On the third login attempt, you should be blocked and see a message telling you to enter an OTP.
-    *   The user should receive an email with a 6-digit OTP.
-    *   Entering the correct OTP should allow you to log in.
-    *   The admin should receive an email notification about the suspicious activity.
-    *   The user's account should now show up in the "Flagged Accounts" widget on the dashboard.
+**Q: How does the plugin handle sensitive data?**
 
-### Test 3: Content Access Monitoring
+A: All sensitive user data, such as IP addresses and device fingerprints, is encrypted in the database to ensure it remains secure.
 
-1.  **Configure:**
-    *   Create a post or page and mark it as protected using the "Protected Content" meta box on the post edit screen.
-    *   Go to **Login Security > Anti-Sharing** and set the **Content Access Threshold** to `2`.
-2.  **Log In:** Log in to a test user account.
-3.  **Access Content:** Visit the protected post you created.
-4.  **Access from Another "Device":** This is harder to simulate, but the plugin tracks devices based on browser fingerprint. Try accessing the same protected page from a different browser on the same computer.
-5.  **Expected Outcome:** After a few accesses from different "devices," the user's account should be flagged, and the admin should be notified.
+## Support
 
-### Test 4: Admin Actions (Warn, Suspend, Ban)
-
-1.  **Go to the Users List:** In your WordPress admin panel, go to **Users**.
-2.  **Warn:** Find your test user and click the "Warn" link.
-    *   **Expected Outcome:** The user should receive a warning email (you can configure the text in the plugin settings).
-3.  **Suspend:** Click the "Suspend" link.
-    *   **Expected Outcome:** The user should be logged out and unable to log in for one hour.
-4.  **Ban:** Click the "Ban" link.
-    *   **Expected Outcome:** The user's account should be permanently blocked. They should not be able to log in with their old password, even if they try to log in with their email address. You can unblock them from the **Login Security** settings page.
+If you need help with the plugin or have any questions, please open an issue on our [GitHub repository](https://example.com/support).
 
 ## Changelog
+
+### 1.3 (2024-07-15)
+*   Fixed a bug that was preventing the plugin from being installed correctly.
+*   Updated the plugin version to 1.3.
 
 ### 1.2 (2024-07-15)
 *   Exempted admins and teachers from suspicious activity blocking.
@@ -100,11 +73,3 @@ Follow these steps to test the core features of the Login Security Squad plugin.
 *   Added a toggle for geolocation flagging.
 *   Encrypted sensitive data in the database.
 *   Patched a critical security vulnerability where a banned user could log in using their email address.
-
-## Installation
-
-1.  Download the `login-security-squad.zip` file.
-2.  In your WordPress admin panel, go to **Plugins** > **Add New**.
-3.  Click **Upload Plugin** and select the downloaded zip file.
-4.  Activate the plugin.
-5.  Go to **Login Security > Anti-Sharing** to configure the plugin.
