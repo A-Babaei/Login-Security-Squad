@@ -3,7 +3,7 @@
  * Plugin Name:       Login Security Squad
  * Plugin URI:        https://example.com/
  * Description:       Detects and prevents users from sharing login credentials.
- * Version:           1.2
+ * Version:           1.3
  * Author:            Jules
  * Author URI:        https://example.com/
  * License:           GPL v2 or later
